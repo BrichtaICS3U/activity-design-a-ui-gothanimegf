@@ -62,7 +62,7 @@ class Button():
     def call_back(self):
         """Runs a function when clicked"""
         self.call_back_()
-
+sound = False
 def my_shell_function():
     """A generic function that prints something in the shell"""
     print('Fire the nukes!')
@@ -81,6 +81,15 @@ def my_previous_function():
     """A function that retreats to the previous level"""
     global level
     level -= 1
+
+def my_soundsOn_function():
+    print('Sounds On')
+
+def my_soundsOff_function():
+    print('Sounds Off')
+        
+def my_hello_function():
+    print('Hello')
 
 def my_quit_function():
     """A function that will quit the game and close the pygame window"""
@@ -105,15 +114,17 @@ carryOn = True
 clock = pygame.time.Clock()
 
 #create button objects
-button_01 = Button("New Game", (SCREENWIDTH/2, SCREENHEIGHT/4), my_next_function)
+button_01 = Button("Hello", (SCREENWIDTH/2, SCREENHEIGHT/4), my_hello_function)
 button_Settings = Button("Settings", (SCREENWIDTH/2, SCREENHEIGHT/2), my_settings_function)
-button_02 = Button("Back", (SCREENWIDTH/2, SCREENHEIGHT/3), my_previous_function)
-button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*3/4), my_quit_function, bg=(50, 200, 20))
+button_02 = Button("Back", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_previous_function)
+button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*6/7), my_quit_function, bg=(50, 200, 20))
+button_SoundsOn = Button("On", (150, SCREENHEIGHT/2), my_soundsOn_function)
+button_SoundsOff = Button("Off", (250, SCREENHEIGHT/2), my_soundsOff_function)
 
 
 #arrange button groups depending on level
 level1_buttons = [button_01, button_03, button_Settings]
-level2_buttons = [button_02, button_03]
+level2_buttons = [button_02, button_03, button_SoundsOn, button_SoundsOff]
 
 #---------Main Program Loop----------
 while carryOn:
@@ -136,6 +147,14 @@ while carryOn:
         for button in level1_buttons:
             button.draw()
     elif level == 2:
+        #Settings Title
+        font = pygame.font.SysFont('comicsansms', 36)
+        text = font.render("Settings", 1, (BLACK))
+        screen.blit(text, (150, 1))
+        #Sound Subtitle
+        font = pygame.font.SysFont('comicsansms', 24)
+        text = font.render("Sound", 1, (BLACK))
+        screen.blit(text, (170, 50))
         for button in level2_buttons:
             button.draw()
 
