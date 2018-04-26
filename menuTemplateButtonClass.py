@@ -124,7 +124,7 @@ button_SoundsOff = Button("Off", (250, SCREENHEIGHT/2), my_soundsOff_function)
 
 #arrange button groups depending on level
 level1_buttons = [button_01, button_03, button_Settings]
-level2_buttons = [button_02, button_03, button_SoundsOn, button_SoundsOff]
+level2_buttons = [button_02, button_SoundsOn, button_SoundsOff]
 
 #---------Main Program Loop----------
 while carryOn:
@@ -144,6 +144,11 @@ while carryOn:
 
     # Draw buttons
     if level == 1:
+        #Title
+        font = pygame.font.SysFont('comicsansms', 36)
+        text = font.render("Hello Game", 1, (BLACK))
+        screen.blit(text, (100, 1))
+        #---------------------------------------------------------
         for button in level1_buttons:
             button.draw()
     elif level == 2:
