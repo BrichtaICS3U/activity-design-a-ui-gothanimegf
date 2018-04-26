@@ -83,9 +83,13 @@ def my_previous_function():
     level -= 1
 
 def my_soundsOn_function():
+    if pygame.mixer.music.play(): 
+        pygame.mixer.music.pause() 
     print('Sounds On')
 
 def my_soundsOff_function():
+    if pygame.mixer.music.pause():
+        pygame.mixer.music.unpause()
     print('Sounds Off')
         
 def my_hello_function():
