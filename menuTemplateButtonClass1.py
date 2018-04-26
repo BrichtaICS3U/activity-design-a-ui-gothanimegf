@@ -4,28 +4,13 @@
 
 import pygame, sys
 pygame.init()
-pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
-pygame.mixer.music.load('SpongeBob.mp3')#https://www.youtube.com/watch?v=vE2ETqUGj6Q
-pygame.mixer.music.play()
-music_playing = True
-BackGround = pygame.image.load('KRUSTY_KRAB.jpg')#https://twitter.com/krustykrabtw
 
 # Define some colours
-
-BLACK = (0, 0, 0)
-GRAY = (100, 100, 100)
 WHITE = (255, 255, 255)
-GREEN = (0, 200, 0)
-BRIGHT_GREEN = (0, 255, 0)
-RED = (200, 0, 0)
-BRIGHT_RED = (255, 0, 0)
-BLUE = (0,0,200)
-BRIGHT_BLUE=(0,0,255)
-Blue1= (75, 198, 185)
-Blue2 = (115, 193, 198)
-Blue3 = (135, 241, 255)
-Blue4= (150, 195, 206)
-Blue5=(67, 188, 205)
+GRAY = (127, 127, 127)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 
 SCREENWIDTH = 400
 SCREENHEIGHT = 400
@@ -44,7 +29,7 @@ class Button():
        font_name = name of font
        font_size = size of font
     """
-    def __init__(self, txt, location, action, bg=WHITE, fg=BLACK, size=(100, 40), font_name="centurygothic", font_size=16):
+    def __init__(self, txt, location, action, bg=WHITE, fg=BLACK, size=(100, 40), font_name="Segoe Print", font_size=16):
         self.color = bg  # the static (normal) color
         self.bg = bg  # actual background color, can change on mouseover
         self.fg = fg  # text color
@@ -98,21 +83,17 @@ def my_previous_function():
     level -= 1
 
 def my_soundsOn_function():
-    global music_playing
-    if music_playing == False:
-        pygame.mixer.music.unpause()
-        music_playing = True
+    if pygame.mixer.music.play(): 
+        pygame.mixer.music.pause() 
     print('Sounds On')
-    
+
 def my_soundsOff_function():
-    global music_playing
-    if music_playing == True:
-        pygame.mixer.music.pause()
-        music_playing = False
+    if pygame.mixer.music.pause():
+        pygame.mixer.music.unpause()
     print('Sounds Off')
         
 def my_hello_function():
-    print('Spongebob says "KRABBY PATTIES NEED LOVE TOO!"')
+    print('Hello')
 
 def my_quit_function():
     """A function that will quit the game and close the pygame window"""
@@ -137,12 +118,12 @@ carryOn = True
 clock = pygame.time.Clock()
 
 #create button objects
-button_01 = Button("FLIP NOW!", (SCREENWIDTH/2, SCREENHEIGHT/4), my_hello_function,bg=Blue3)
-button_Settings = Button("Settings", (SCREENWIDTH/2, SCREENHEIGHT/2), my_settings_function,bg=(20,200,35))
+button_01 = Button("Hello", (SCREENWIDTH/2, SCREENHEIGHT/4), my_hello_function)
+button_Settings = Button("Settings", (SCREENWIDTH/2, SCREENHEIGHT/2), my_settings_function)
 button_02 = Button("Back", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_previous_function)
-button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*6/7), my_quit_function, bg=(200,25,35))
-button_SoundsOn = Button("On", (150, SCREENHEIGHT/2), my_soundsOn_function,bg=(20,200,35))
-button_SoundsOff = Button("Off", (250, SCREENHEIGHT/2), my_soundsOff_function,bg=(200,25,35))
+button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*6/7), my_quit_function, bg=(50, 200, 20))
+button_SoundsOn = Button("On", (150, SCREENHEIGHT/2), my_soundsOn_function)
+button_SoundsOff = Button("Off", (250, SCREENHEIGHT/2), my_soundsOff_function)
 
 
 #arrange button groups depending on level
@@ -163,22 +144,24 @@ while carryOn:
     # --- Draw code goes here
 
     # Clear the screen to white
-    screen.blit(BackGround,(0, 0))
+    screen.fill(WHITE)
 
     # Draw buttons
     if level == 1:
+        #Title
+        font = pygame.font.SysFont('comicsansms', 36)
+        text = font.render("Hello Game", 1, (BLACK))
+        screen.blit(text, (100, 1))
+        #---------------------------------------------------------
         for button in level1_buttons:
             button.draw()
-        font = pygame.font.SysFont('centurygothic', 26)
-        text = font.render("EXTREME KRABBY PATTY FLIP", 1, (BLACK))
-        screen.blit(text, (35, 10))
     elif level == 2:
         #Settings Title
-        font = pygame.font.SysFont('centurygothic', 36)
+        font = pygame.font.SysFont('comicsansms', 36)
         text = font.render("Settings", 1, (BLACK))
         screen.blit(text, (150, 1))
         #Sound Subtitle
-        font = pygame.font.SysFont('centurygothic', 24)
+        font = pygame.font.SysFont('comicsansms', 24)
         text = font.render("Sound", 1, (BLACK))
         screen.blit(text, (170, 50))
         for button in level2_buttons:
